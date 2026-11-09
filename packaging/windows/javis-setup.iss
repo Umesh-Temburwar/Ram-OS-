@@ -1,4 +1,4 @@
-﻿; ============================================================
+; ============================================================
 ; JAVIS OS - Windows installer (Inno Setup 6), builds dist\JavisOS-Setup.exe
 ;
 ;   iscc /DAppVersion=0.439.0 packaging\windows\javis-setup.iss

@@ -13,7 +13,7 @@ import os
 
 # Every voice prompt opens with this clause (voice_live.SYSTEM_PROMPT, GPT_LIVE_PROMPT,
 # CHATGPT_LIVE_PROMPT, voice_brain.SYSTEM_PROMPT); test_voice_persona.py keeps them in step.
-OPENING = "Bạn là Javis, trợ lý cá nhân,"
+OPENING = "Bạn là RAM, trợ lý cá nhân,"
 
 # Voice budgets are *Javis* defaults, not provider model context limits.
 # Keep a bounded override for long-lived agent profiles (including future telephone gateways).
