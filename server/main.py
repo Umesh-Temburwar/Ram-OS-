@@ -15286,16 +15286,17 @@ def _render_javis_index(caps: dict) -> str:
 
 
 def rebuild_javis_index(brain: str) -> dict:
-    """Dựng lại Javis/index.md từ file. Chỉ ghi KHI nội dung đổi (chống churn git)."""
+    """Dựng lại Ram/index.md từ file. Chỉ ghi KHI nội dung đổi (chống churn git)."""
     try:
         content = _render_javis_index(_gather_capabilities(brain))
-        idx = Path(_brain_root(brain)) / "Javis" / "index.md"
-        old = idx.read_text(encoding="utf-8") if idx.exists() else ""
+        ram_idx = Path(_brain_root(brain)) / "Ram" / "index.md"
+        old = ram_idx.read_text(encoding="utf-8") if ram_idx.exists() else ""
+        written = False
         if old != content:
-            idx.parent.mkdir(parents=True, exist_ok=True)
-            _atomic_write_text(idx, content)
-            return {"ok": True, "written": True}
-        return {"ok": True, "written": False}
+            ram_idx.parent.mkdir(parents=True, exist_ok=True)
+            _atomic_write_text(ram_idx, content)
+            written = True
+        return {"ok": True, "written": written}
     except Exception as e:
         return {"ok": False, "error": f"{type(e).__name__}: {e}"}
 
@@ -15319,7 +15320,7 @@ def _ops_index_brains() -> list:
     cands = []
     try:
         cands += [str(p) for p in sorted(Path(BRAINS_DIR).iterdir())
-                  if p.is_dir() and not p.name.startswith(".") and (p / "Javis").is_dir()]
+                  if p.is_dir() and not p.name.startswith(".") and ((p / "Javis").is_dir() or (p / "Ram").is_dir())]
     except OSError:
         pass
     try:
@@ -15404,7 +15405,9 @@ def _skill_router_block(brain: str, root: str, skills=None) -> str:
 def javis_index(brain: str = Query("brain")):
     """Dựng lại + trả nội dung Javis/index.md (chỉ mục tầng vận hành)."""
     rebuild_javis_index(brain)
-    idx = Path(_brain_root(brain)) / "Javis" / "index.md"
+    idx = Path(_brain_root(brain)) / "Ram" / "index.md"
+    if not idx.exists():
+        idx = Path(_brain_root(brain)) / "Javis" / "index.md"
     return {"ok": True, "content": idx.read_text(encoding="utf-8") if idx.exists() else "",
             "counts": {k: len(v) for k, v in _gather_capabilities(brain).items()}}
 
@@ -21032,7 +21035,7 @@ async def _chat_socket(ws):
                 brain = payload.get("brain", "brain")
                 _cfg_luot = cfgmod.read_settings()
                 mcfg = _cfg_luot.get("model", {})
-                # Tin từ MIC: sửa TÊN nghe nhầm ("David", "Jarvis", "Gia vít" -> "Javis" và từ vựng
+                # Tin từ MIC: sửa TÊN nghe nhầm ("David", "Ram", "Gia vít" -> "Javis" và từ vựng
                 # người dùng khai) TRƯỚC khi lưu, bằng so khớp âm tất định của nghe_sua - không phải
                 # AI hay STT phụ. 0.64.32 gỡ lớp này cùng lúc với việc chặn AI viết lại câu, làm
                 # Javis đáp "anh nói là David" (chủ dự án 24/09). Lớp này không đụng từ phủ định, số,

@@ -5,7 +5,7 @@
 set -u
 
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-PIDF="${APP_DIR}/server/javis.pid"
+PIDF="${APP_DIR}/server/ram.pid"
 PORT="${JAVIS_PORT:-7777}"
 
 if [ -f "${PIDF}" ]; then
@@ -14,4 +14,4 @@ if [ -f "${PIDF}" ]; then
 fi
 # Fallback: kill whatever holds the port
 lsof -ti "tcp:${PORT}" 2>/dev/null | xargs kill 2>/dev/null || true
-echo "JAVIS OS stopped."
+echo "RAM OS stopped."

@@ -24,7 +24,7 @@ from typing import Dict, Tuple
 # Ngôn ngữ dùng khi không biết gì cả. Cố ý là tiếng Việt: đây là brain của người Việt, và
 # rơi về tiếng Việt thì tệ nhất cũng chỉ là trả lời sai ngôn ngữ cho một người nước ngoài,
 # còn rơi về tiếng Anh thì mọi người dùng hiện tại bị đổi ngôn ngữ trong im lặng.
-MAC_DINH = "vi"
+MAC_DINH = "en"
 
 # Ngôn ngữ CHỮ TRÊN MÀN HÌNH khi thiết bị chọn một thứ tiếng mà chuỗi đó chưa có bản dịch.
 # Khác MAC_DINH có chủ ý (0.67.0): người đọc tiếng Nhật gặp một câu chưa dịch thì tiếng Anh còn

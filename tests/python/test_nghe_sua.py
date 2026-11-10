@@ -3,7 +3,7 @@
     python tests/run.py nghe_sua
 
 Vì sao file này tồn tại (0.59.24): người dùng nói lẫn Việt - Anh, máy nghe chép "Javis" thành
-"David", "Jarvis", "Gia vít"... rồi Javis trả lời bám nghĩa đen. Lớp này sửa theo ÂM và NGỮ
+"David", "Ram", "Gia vít"... rồi Javis trả lời bám nghĩa đen. Lớp này sửa theo ÂM và NGỮ
 CẢNH trước khi câu đi vào bộ não. Ranh giới quan trọng: không đổi tên người thứ ba ("nhắn cho
 David"), không đổi tên riêng hai chữ ("David Beckham"), không đụng câu không liên quan, và
 không sửa gì thì trả y nguyên.
@@ -25,7 +25,7 @@ TV = ["Javis"]
 S = lambda s, tv=TV: nghe_sua.sua(s, tv)   # noqa: E731
 
 # ---- 1. Khoá âm: những cách máy nghe hay chép "Javis" phải về cùng một khoá ----
-for w in ("Javis", "David", "Davis", "Jarvis", "Gia vít", "Ja vịt", "Đa vít", "javist"):
+for w in ("Javis", "David", "Davis", "Ram", "Gia vít", "Ja vịt", "Đa vít", "javist"):
     check(f"khoá âm của {w!r} trùng Javis", nghe_sua.khoa_am(w) == nghe_sua.khoa_am("Javis"))
 check("Java KHÔNG trùng khoá Javis", nghe_sua.khoa_am("Java") != nghe_sua.khoa_am("Javis"))
 
@@ -33,7 +33,7 @@ check("Java KHÔNG trùng khoá Javis", nghe_sua.khoa_am("Java") != nghe_sua.kho
 check("đầu câu: David -> Javis", S("David mở trang việc giúp anh") == "Javis mở trang việc giúp anh")
 check("hey David", S("hey David, doanh thu hôm nay bao nhiêu") == "hey Javis, doanh thu hôm nay bao nhiêu")
 check("cuối câu: cảm ơn David", S("cảm ơn David") == "cảm ơn Javis")
-check("Jarvis -> Javis", S("Jarvis ơi mở lịch") == "Javis ơi mở lịch")
+check("Ram -> Javis", S("Ram ơi mở lịch") == "Javis ơi mở lịch")
 check("bị tách hai tiếng: Gia vít ơi", S("Gia vít ơi, tóm tắt email") == "Javis ơi, tóm tắt email")
 check("Ja vịt giữa câu (trùng hoàn toàn)", S("hôm nay ja vịt thấy sao") == "hôm nay Javis thấy sao")
 check("Đa vít", S("Đa vít cho anh xem lịch") == "Javis cho anh xem lịch")

@@ -4,14 +4,14 @@ Two entry points:
   - `rewrite_transcript` (POST /stt/fix with `final`): the END of every dictation. A model rewrites the whole
     sentence into what the owner meant: the MAIN brain when it is an API key, else the quickest API key on the machine
     (Groq first) with the main brain's CLI as the last resort, so a dictation stays fast, using the last messages of the chat as context. Any language, any mishearing:
-    not a word list. Owner, 2026-11-06: "đừng chỉ sửa vài từ như Travis hay Jarvis, hãy sửa cả cấu trúc để mọi
+    not a word list. Owner, 2026-11-06: "đừng chỉ sửa vài từ như Travis hay Ram, hãy sửa cả cấu trúc để mọi
     trường hợp đều ra đúng ngữ cảnh rồi mới gửi đi", and "dùng ngay chính mô hình chính".
   - `fix_transcript` (POST /stt/fix without `final`): the older word-level fix, kept for a page still open from before.
 
 The word-level fix:
 
 Two passes, in order:
-  1. Rules (nghe_sua.sua): known cases (Jarvis -> Javis, Javis OS, Groq/Grok...). Free, instant, and
+  1. Rules (nghe_sua.sua): known cases (Ram -> Javis, Javis OS, Groq/Grok...). Free, instant, and
      always there even with no model at all.
   2. Model: reads the sentence after the rules and fixes words the rules do not know, guided by the
      vocabulary. The model is picked in this order:

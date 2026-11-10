@@ -87,10 +87,11 @@ def brain_signature(root, agents_dir, workflows_dir, plugins_dir: Optional[Path]
     for base in SKILL_BASES:
         _child_manifests(parts, root / base, ("SKILL.md",))
         _child_manifests(parts, root / base / ".disabled", ("SKILL.md",))
-    _md_files(parts, root / "Javis" / "loops")
-    _stat(parts, root / "Javis" / "loop-state.json")   # a loop that paused itself shows in the index
+    ops_folder = "Ram" if (root / "Ram").is_dir() else "Javis"
+    _md_files(parts, root / ops_folder / "loops")
+    _stat(parts, root / ops_folder / "loop-state.json")   # a loop that paused itself shows in the index
     _child_manifests(parts, plugins_dir, PLUGIN_FILES)
-    _stat(parts, root / "Javis" / "index.md")          # deleted or edited by hand: write it again
+    _stat(parts, root / ops_folder / "index.md")          # deleted or edited by hand: write it again
     return hashlib.blake2b(repr(parts).encode("utf-8"), digest_size=16).hexdigest()
 
 

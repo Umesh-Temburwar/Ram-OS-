@@ -1,0 +1,9 @@
+#!/bin/bash
+# App bundle entrypoint -> delegates to bin/ram-start.sh or bin/javis-start.sh.
+DIR="$(cd "$(dirname "$0")/../../.." && pwd)"
+if [ -f "${DIR}/bin/ram-start.sh" ]; then
+  exec "${DIR}/bin/ram-start.sh"
+else
+  exec "${DIR}/bin/javis-start.sh"
+fi
+

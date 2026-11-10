@@ -29,21 +29,23 @@ import fastyaml
 
 SLUG = "javis-core"
 CHANNEL = "agent:" + SLUG
-NAME = "Javis Core"
+NAME = "RAM Core"
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DEFINITION_PATH = PROJECT_ROOT / "system" / "agents" / f"{SLUG}.md"
-BLOCK_TITLE = "JAVIS CORE"
+DEFINITION_PATH = PROJECT_ROOT / "system" / "agents" / "ram-core.md"
+if not DEFINITION_PATH.is_file():
+    DEFINITION_PATH = PROJECT_ROOT / "system" / "agents" / f"{SLUG}.md"
+BLOCK_TITLE = "RAM CORE"
 
 _lock = threading.RLock()
 _def_cache: Dict[str, Any] = {"mtime": None, "value": None}
 
 
 def is_core_slug(slug: Any) -> bool:
-    return str(slug or "").strip().lower() == SLUG
+    return str(slug or "").strip().lower() in (SLUG, "ram-core")
 
 
 def is_core_channel(channel: Any) -> bool:
-    return str(channel or "") == CHANNEL
+    return str(channel or "") in (CHANNEL, "agent:ram-core")
 
 
 def definition() -> Dict[str, str]:
@@ -189,7 +191,13 @@ AGENTS_DIR: Callable[[Any], Path] = lambda root: Path(str(root)) / "agents"
 
 
 def core_path(root: Any) -> Optional[Path]:
-    return Path(AGENTS_DIR(root)) / f"{SLUG}.md" if str(root or "").strip() else None
+    if not str(root or "").strip():
+        return None
+    d = Path(AGENTS_DIR(root))
+    ram = d / "ram-core.md"
+    if ram.is_file():
+        return ram
+    return d / f"{SLUG}.md"
 
 
 def _sha(text: Any) -> str:
@@ -245,8 +253,10 @@ def ensure_file(root: Any) -> Optional[Path]:
             seed = str(meta.get("seed_sha") or "")
             if d["body"] and seed and _sha(body) == seed and _sha(d["body"]) != seed:
                 body, meta["seed_sha"], changed = d["body"], _sha(d["body"]), True
-            if meta.get("system") is not True or meta.get("slug") != SLUG or meta.get("type") != "agent":
-                meta.update({"type": "agent", "slug": SLUG, "system": True})
+            if meta.get("system") is not True or meta.get("slug") not in (SLUG, "ram-core") or meta.get("type") != "agent":
+                meta.update({"type": "agent", "system": True})
+                if "slug" not in meta:
+                    meta["slug"] = "ram-core" if path.name == "ram-core.md" else SLUG
                 changed = True
             if not str(meta.get("name") or "").strip():
                 meta["name"], changed = NAME, True

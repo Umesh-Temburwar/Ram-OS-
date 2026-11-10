@@ -1,4 +1,4 @@
-"""Javis Core chọn model và bớt thông báo đăng nhập báo sai (0.402.0; chủ repo 29/10/2026: "Jarvis Core đang không có cài
+"""Javis Core chọn model và bớt thông báo đăng nhập báo sai (0.402.0; chủ repo 29/10/2026: "Ram Core đang không có cài
 đặt được model", "nhiều thông báo đặt là sign in nhưng mà nó vẫn hiện thông báo").
 
     python tests/run.py core_model_bao_sai

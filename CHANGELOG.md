@@ -449,7 +449,7 @@ Lịch sử phiên bản Javis OS. Bản mới nhất ở trên cùng. Xem ngay 
 - **Bong bóng chép lời sửa chữ ngay khi bạn đang nói (máy tính), ở chat chính, trang Nhóm và trang Chatbot.** Bong bóng mờ hiện chữ nghe được, rồi đổi sang bản đã sửa vài khoảnh khắc sau: Javis dùng Groq nếu bạn đã gắn khoá, không thì dùng model nền. Dừng ghi là ô chat nhận đúng bản đã sửa. Server không trả lời thì chữ giữ nguyên như nghe được.
 ### Sửa lỗi
 - **Javis nghe đúng tên các sản phẩm AI hơn.** "Groq", "Grok", "Claude", "ChatGPT", "Gemini", "OpenRouter"... ra đúng chính tả, và nói "Groq" không còn bị đổi thành "Grok".
-- **"Jarvis OS" giờ ra đúng "Javis OS".**
+- **"Ram OS" giờ ra đúng "Javis OS".**
 - **Chép lời trên Android không còn mất chữ.** Bản trước bỏ mất câu ngắn nói sau một câu dài (nói "tôi về rồi" rồi "tôi" thì mất chữ "tôi"). Giờ chữ được dựng lại từ toàn bộ những gì máy nghe, mà vẫn không lặp kiểu "tôi tôi bị".
 ### Cải thiện
 - **Repo GitHub ở trang Nhóm có logo GitHub như ở phần Trò chuyện**, trên chip repo, trong menu "+" và trong bảng thông tin nhóm.
@@ -4207,7 +4207,7 @@ Cảm ơn người dùng đã gửi báo lỗi kèm bản vá chạy thử trên
 
 ## [0.59.24] - 2026-09-16
 ### Cải thiện
-- **Nói lẫn tiếng Anh, Javis vẫn hiểu đúng tên.** Khi bạn gọi "Javis" mà máy nghe chép thành "David", "Jarvis" hay "Gia vít", Javis tự sửa lại theo âm và ngữ cảnh trước khi hiểu câu, nên hết cảnh trả lời "David là ai". Tên bạn của bạn ("nhắn cho David") thì để yên.
+- **Nói lẫn tiếng Anh, Javis vẫn hiểu đúng tên.** Khi bạn gọi "Javis" mà máy nghe chép thành "David", "Ram" hay "Gia vít", Javis tự sửa lại theo âm và ngữ cảnh trước khi hiểu câu, nên hết cảnh trả lời "David là ai". Tên bạn của bạn ("nhắn cho David") thì để yên.
 - **Ô "Từ hay nghe nhầm" ở thẻ Giọng nói trong Cài đặt.** Gõ tên công cụ, tên dự án, tên người hay dùng, ngăn bằng dấu phẩy. Javis mồi những từ này cho máy nghe Groq để viết đúng chính tả, và sửa theo ngữ cảnh cho cả máy nghe của trình duyệt lẫn tin thoại Telegram, Zalo.
 - Bộ não giọng làn nhanh được dặn rằng câu đến từ máy nghe và phải hiểu theo ý người nói, không bám nghĩa đen của từ nghe sai.
 

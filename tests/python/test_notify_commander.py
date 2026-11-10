@@ -1,5 +1,5 @@
 """Javis Core, the notification commander (0.403.0; owner 29/10/2026: "trao quyền quyết định đấy cho bộ phán xử của
-Jarvis Core", "1. Tự động  2. Mặc định chỉ tin khẩn", "chấm theo hệ thống resonance về việc phản hồi của emoji").
+Ram Core", "1. Tự động  2. Mặc định chỉ tin khẩn", "chấm theo hệ thống resonance về việc phản hồi của emoji").
 
     python tests/run.py notify_commander
 

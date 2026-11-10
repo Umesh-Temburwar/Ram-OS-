@@ -82,8 +82,8 @@
         if(mode==='observe'){controller.reset();return false;}
         if(!running())return false;
         if(controller.state==='SAVED_DRAFT') {
-          if(/^(?:javis|jarvis)(?:\s|[,!?]|$)/i.test(text.trim())) {
-            const addition=text.trim().replace(/^(?:javis|jarvis)(?:\s+ơi)?[\s,!?]*/i,'');
+          if(/^(?:javis|Ram)(?:\s|[,!?]|$)/i.test(text.trim())) {
+            const addition=text.trim().replace(/^(?:javis|Ram)(?:\s+ơi)?[\s,!?]*/i,'');
             resume();
             if(addition) input(addition);
           }

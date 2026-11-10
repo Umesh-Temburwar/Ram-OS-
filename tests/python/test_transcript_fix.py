@@ -2,7 +2,7 @@
 
     python tests/run.py transcript_fix
 
-No network: the model call (`transcript_fix._ask_model`) is replaced by fakes. Pins: rules always run (Jarvis ->
+No network: the model call (`transcript_fix._ask_model`) is replaced by fakes. Pins: rules always run (Ram ->
 Javis, Groq kept), Groq wins when its key is set, otherwise the background model only when it is an API with a key,
 a model that rewrites the sentence or fails falls back to the rules, and the route never errors.
 """
@@ -44,8 +44,8 @@ check("background model is Claude Code: rules only",
       transcript_fix.pick_model({"model": {"auxiliary": {"provider": "anthropic-cli"}}}) is None)
 
 # ---- rules only ----
-r = fix({"model": {}}, "tôi hỏi Jarvis OS nhé")
-check("rules: Jarvis OS -> Javis OS", r == {"text": "tôi hỏi Javis OS nhé", "source": "rules", "ai": False})
+r = fix({"model": {}}, "tôi hỏi Ram OS nhé")
+check("rules: Ram OS -> Javis OS", r == {"text": "tôi hỏi Javis OS nhé", "source": "rules", "ai": False})
 check("rules: Groq is kept, not turned into Grok", fix({"model": {}}, "tôi dùng Groq")["text"] == "tôi dùng Groq")
 check("empty text stays empty", fix({"model": {}}, "  ")["text"] == "")
 
@@ -59,11 +59,11 @@ async def fake_ok(pick, sentence, terms):
 
 
 transcript_fix._ask_model = fake_ok
-r = fix({"model": {"groq_api_key": "gk"}}, "mở Clod giúp Jarvis OS")
+r = fix({"model": {"groq_api_key": "gk"}}, "mở Clod giúp Ram OS")
 check("model: gets the rules' output and the AI terms", seen and seen[-1] == ("groq", "mở Clod giúp Javis OS", True))
 check("model: its fix is returned", r == {"text": "mở Claude giúp Javis OS", "source": "groq", "ai": True})
 n = len(seen)
-fix({"model": {"groq_api_key": "gk"}}, "mở Clod giúp Jarvis OS")
+fix({"model": {"groq_api_key": "gk"}}, "mở Clod giúp Ram OS")
 check("model: the same sentence is answered from the cache", len(seen) == n)
 
 
@@ -81,14 +81,14 @@ async def fake_fail(pick, sentence, terms):
 
 
 transcript_fix._ask_model = fake_fail
-r = fix({"model": {"groq_api_key": "gk"}}, "Jarvis ơi")
+r = fix({"model": {"groq_api_key": "gk"}}, "Ram ơi")
 check("model fails: rules kept, no error", r == {"text": "Javis ơi", "source": "rules", "ai": False})
 check("is_safe_fix: a one-word fix is fine", transcript_fix.is_safe_fix("mở Grox giúp tôi", "mở Grok giúp tôi"))
 check("is_safe_fix: empty is refused", not transcript_fix.is_safe_fix("a b", ""))
 
 # ---- route ----
 main.cfgmod.read_settings = lambda: {"model": {}}
-res = client.post("/stt/fix", json={"text": "Jarvis OS ơi"})
+res = client.post("/stt/fix", json={"text": "Ram OS ơi"})
 check("/stt/fix: 200 with the fixed text", res.status_code == 200 and res.json() == {
     "ok": True, "text": "Javis OS ơi", "source": "rules", "ai": False})
 res = client.post("/stt/fix", content=b"not json", headers={"Content-Type": "application/json"})

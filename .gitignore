@@ -189,7 +189,7 @@ brain/Brain Default/Javis/automations.json
 
 # File rác / script cá nhân ở gốc (không thuộc sản phẩm public)
 # Đã gỡ hai dòng /agents và /workflows ở 0.9.241: chúng sinh ra để che hai file rác 28 byte
-# (mảnh log "- Move: Jarvis\agents -" do một lệnh redirect hỏng), nhưng hệ quả là chặn vĩnh
+# (mảnh log "- Move: Ram\agents -" do một lệnh redirect hỏng), nhưng hệ quả là chặn vĩnh
 # viễn việc tạo thư mục agents/ hay workflows/ THẬT ở gốc. Hai file rác đã xoá hẳn.
 parse_ads*.ps1
 
@@ -225,3 +225,10 @@ server/client_errors.tmp
 # Desktop installers built by packaging/ (CI publishes them on the "desktop" release)
 /dist/
 packaging/windows/Vietnamese.isl
+server/checkpoints/
+server/github_stars.json
+server/job_marks.sqlite3*
+server/news_read.json
+server/next_prompt_cwd/
+server/ram_core.json
+server/javis_core.json

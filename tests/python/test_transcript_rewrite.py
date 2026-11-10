@@ -3,7 +3,7 @@
     python tests/run.py transcript_rewrite
 
 Owner, 2026-11-06: "nói xong ấn Enter hoặc ấn tắt thì nó tự dùng mô hình viết lại thành câu đúng ngữ cảnh", "đừng
-chỉ sửa vài từ như Travis hay Jarvis, hãy sửa cả cấu trúc", "dùng ngay chính mô hình chính". No network: the main
+chỉ sửa vài từ như Travis hay Ram, hãy sửa cả cấu trúc", "dùng ngay chính mô hình chính". No network: the main
 brain (`transcript_fix._ASK`) and the quick API call are fakes. Pins: the prompt carries the heard sentence, the
 vocabulary and the chat context; fast first (a main brain on an API key first, else an API key on the machine and
 the main brain's CLI last); an answer that is not a rewrite (an answer to the
@@ -109,8 +109,8 @@ transcript_fix._ask_quick_api = fake_quick
 res = run({"model": {"groq_api_key": "gk"}}, "kiểm tra giúp anh travis đã nghe được chưa")
 check("Groq key with a CLI main brain: Groq rewrites", res["source"] == "groq" and quick == ["groq"]
       and res["text"] == "Kiểm tra giúp anh Javis đã nghe được chưa.")
-res = run({}, "kiểm tra giúp anh jarvis đã nghe được chưa")
-check("no model at all: the word rules still run (Jarvis -> Javis)",
+res = run({}, "kiểm tra giúp anh Ram đã nghe được chưa")
+check("no model at all: the word rules still run (Ram -> Javis)",
       res["source"] == "rules" and "Javis" in res["text"])
 
 

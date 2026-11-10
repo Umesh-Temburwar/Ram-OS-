@@ -26,7 +26,7 @@ SETTINGS_PATH = STATE_DIR / "settings.json"
 BRANDING_DIR = STATE_DIR / "branding"
 
 _DEFAULT = {
-    "workspace_name": "Javis OS",
+    "workspace_name": "RAM OS",
     "setup_done": False,                       # đã qua bộ cài đặt lần đầu chưa
     # totp = xác thực 2 lớp. secret rỗng / enabled=false → cổng đăng nhập giữ nguyên như cũ.
     # `recovery` giữ BẢN BĂM của mã khôi phục (cùng cách băm mật khẩu), nên không có đường nào
@@ -38,18 +38,12 @@ _DEFAULT = {
     "branding": {"logo_ext": "", "logo_v": 0},
     # Tên miền riêng cho HTTPS tự động (Caddy On-Demand TLS hỏi /tls-check trước khi xin cert).
     "domain": {"custom": ""},
-    # Ngôn ngữ và locale. TÁCH BA BIẾN có chủ ý (spec đa ngôn ngữ mục 4.1):
-    #   ui_lang     chữ trên màn hình      - "" = chưa ai chọn: dashboard đoán theo trình duyệt
-    #               rồi ghi lại đây (0.66.0). Bản cài cũ đã lưu "vi" nên không bị đổi.
-    #   reply_lang  Javis trả lời          - "auto" = bám theo ngôn ngữ người dùng đang viết
-    #   tz/currency locale, KHÁC ngôn ngữ  - người dùng tiếng Anh ở VN vẫn xài UTC+7 và VND
-    # Gộp ba cái làm một là chặn đứng ca dùng đáng tiền nhất: chủ Việt, giao diện Việt, brain
-    # Việt, nhưng chatbot đối ngoại trả lời tiếng Nhật.
+    # Ngôn ngữ và locale.
     "locale": {
-        "ui_lang": "",
-        "reply_lang": "auto",              # auto | vi | en
-        "tz": "Asia/Ho_Chi_Minh",
-        "currency": "VND",
+        "ui_lang": "en",
+        "reply_lang": "en",              # auto | vi | en
+        "tz": "Asia/Kolkata",
+        "currency": "INR",
     },
     # Nhà cung cấp giọng đọc (TTS). edge = Edge TTS miễn phí (mặc định, dự phòng).
     # openai = OpenAI TTS (dùng model.openai_api_key). elevenlabs = ElevenLabs (key riêng).

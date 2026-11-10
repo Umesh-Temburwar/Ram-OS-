@@ -13,8 +13,8 @@ set -u
 APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PORT="${JAVIS_PORT:-7777}"
 URL="http://127.0.0.1:${PORT}"
-LOG="${APP_DIR}/server/javis.log"
-PIDF="${APP_DIR}/server/javis.pid"
+LOG="${APP_DIR}/server/ram.log"
+PIDF="${APP_DIR}/server/ram.pid"
 PY="${APP_DIR}/.venv/bin/python"
 
 # A GUI (Finder/LaunchServices) launch starts with a minimal PATH, so add the
