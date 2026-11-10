@@ -32,7 +32,7 @@ check("tasks.js plays through the shared switch", /function sfx\(kind\) \{ try \
 const iS = html.indexOf('id="soundToggle"'), iT = html.indexOf('id="themeToggle"');
 check("the sound button sits right before the light/dark one", iS > 0 && iT > iS && iT - iS < 1600);
 check("only a button, no volume slider", !/type="range"/.test(html.slice(iS, iT)));
-check("ui-sound.js loads right after theme.js", /static\/theme\.js\?v=\d+"><\/script>\n  <script src="\/static\/ui-sound\.js/.test(html));
+check("ui-sound.js loads right after theme.js", /static\/theme\.js\?v=\d+"><\/script>\r?\n  <script src="\/static\/ui-sound\.js/.test(html));
 check("speaker with waves when on, crossed out when off", /\.sound-toggle\[aria-pressed="false"\] \.ic-son \{ display: none; \}/.test(style) && /\.sound-toggle \.ic-soff \{ display: none; \}/.test(style));
 check("on a phone it moves to the drawer foot beside light/dark", /moveEl\(document\.getElementById\("soundToggle"\), true, true\);[^\n]*\n\s*moveEl\(document\.getElementById\("themeToggle"\)/.test(mob) && /\.rail-foot #soundToggle \+ #themeToggle/.test(ccss));
 check("the setting is one key on this device, default on", /KEY = "javis\.sound"/.test(snd) && /getItem\(KEY\) !== "off"/.test(snd));

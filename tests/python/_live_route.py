@@ -133,7 +133,7 @@ class LiveRouteMixin:
             try:
                 return await self._run_in(store, directory, script, answers, status_supported, live_overrides or {})
             finally:
-                store._conn.close()
+                store.close()
 
     async def _run_in(self, store, directory, script, answers, status_supported, live_overrides):
         sid = store.get_or_create(None, brain="brain", engine="test", model="test")
