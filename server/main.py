@@ -17008,7 +17008,7 @@ def _cite_text(src: str, item: dict, brain: str) -> str:
                          "System notice" if src == "news" or item.get("kind") == "system" else "Report")
     meta = " · ".join(x for x in (nguon, ten_brain, when) if x)
     note = localefmt.chu("Nội dung tại thời điểm thông báo, không phải trạng thái hiện tại. Hỏi gì tiếp cứ nhắn ở đây.",
-                         "Content as of the notice, not the current state. Ask anything about it here.")
+                         "Content as of the notice, not the current state (không phải trạng thái hiện tại). Ask anything about it here.")
     return (f"📌 **{head}**" + (f" · {meta}" if meta else "") + f"\n\n**{title}**\n{body}\n\n_{note}_\n"
             f"<!-- javis-cite:{src}:{item.get('id', '')} -->")
 

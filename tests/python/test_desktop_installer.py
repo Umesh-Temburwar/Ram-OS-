@@ -206,7 +206,7 @@ if shutil.which("bash") and os.name != "nt":
         check("app executable is executable", os.access(app / "MacOS" / "javis", os.X_OK))
     shutil.rmtree(ROOT / "dist", ignore_errors=True)
 for f in (LAUNCHER, BOOT_SH, BUILD_DMG, PK / "macos" / "get-javis.sh", ROOT / "install.sh", ROOT / "bin" / "javis-start.sh"):
-    r = subprocess.run(["bash", "-n", str(f)], capture_output=True, text=True)
+    r = subprocess.run(["bash", "-n", f.relative_to(ROOT).as_posix()], cwd=ROOT, capture_output=True, text=True)
     check(f"bash -n {f.relative_to(ROOT)}", r.returncode == 0, r.stderr)
 check("in-repo JAVIS OS.app now has the icon its Info.plist names",
       (ROOT / "JAVIS OS.app" / "Contents" / "Resources" / "javis.icns").exists())

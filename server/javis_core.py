@@ -29,12 +29,12 @@ import fastyaml
 
 SLUG = "javis-core"
 CHANNEL = "agent:" + SLUG
-NAME = "RAM Core"
+NAME = "Javis Core"
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DEFINITION_PATH = PROJECT_ROOT / "system" / "agents" / "ram-core.md"
+DEFINITION_PATH = PROJECT_ROOT / "system" / "agents" / "javis-core.md"
 if not DEFINITION_PATH.is_file():
-    DEFINITION_PATH = PROJECT_ROOT / "system" / "agents" / f"{SLUG}.md"
-BLOCK_TITLE = "RAM CORE"
+    DEFINITION_PATH = PROJECT_ROOT / "system" / "agents" / "ram-core.md"
+BLOCK_TITLE = "JAVIS CORE"
 
 _lock = threading.RLock()
 _def_cache: Dict[str, Any] = {"mtime": None, "value": None}

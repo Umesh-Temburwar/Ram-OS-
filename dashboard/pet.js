@@ -648,7 +648,7 @@
     // 15) nhìn không khác; có chuột, có cú gật hay đang làm việc thì vẫn đủ 60.
     var khoang = nguGat ? 66 : (state === "idle" && now - chuotLuc > 1600 && gatLuc <= now ? 33 : 0);
     if (khoang && truoc && now - truoc < khoang) { raf = requestAnimationFrame(nhip); return; }
-    var dt = Math.min((now - (truoc || now)) / 1000, 0.1);
+    var dt = Math.min((now - (truoc || (now - 25))) / 1000, 0.1);
     truoc = now;
 
     if (giamChuyenDong && giamChuyenDong.matches) {

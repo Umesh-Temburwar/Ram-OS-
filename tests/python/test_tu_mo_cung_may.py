@@ -83,7 +83,7 @@ check("setup.bat bật trước khi chạy server ở cửa sổ", bat.find("jav
 
 # ---- 3. macOS ----
 SH = shutil.which("bash")
-if SH:
+if SH and os.name != "nt":
     t = Path(tempfile.mkdtemp(prefix="tumo-mac-"))
     app = t / "app"
     (app / "bin").mkdir(parents=True)

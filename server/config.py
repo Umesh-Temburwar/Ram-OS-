@@ -40,7 +40,7 @@ _DEFAULT = {
     "domain": {"custom": ""},
     # Ngôn ngữ và locale.
     "locale": {
-        "ui_lang": "en",
+        "ui_lang": "",
         "reply_lang": "en",              # auto | vi | en
         "tz": "Asia/Kolkata",
         "currency": "INR",

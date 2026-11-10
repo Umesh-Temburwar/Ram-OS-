@@ -14,10 +14,13 @@ Install Javis like any other app: download one file, open it, and you get a JAVI
 Clicking the icon opens Javis in its own window (no address bar), Javis starts with the computer, and the in-app **Update** button works as usual. Your data lives in the `JavisOS` folder in your user folder; uninstalling the app keeps that folder.
 
 **Install without the warning screen (recommended).** Both installers are not code-signed yet, so a browser download gets blocked the first time. Paste one line instead and you get the same installer with the Javis logo, unblocked:
-- **Windows:** run or double-click `install.bat` inside the project folder.
+- **Windows:** right-click **Start** → **Terminal** (or PowerShell), paste this line and press Enter:
+  ```
+  irm https://raw.githubusercontent.com/blogminhquy/javis-os/main/packaging/windows/get-javis.ps1 | iex
+  ```
 - **macOS:** open **Terminal** (Launchpad, type Terminal), paste this line and press Enter:
   ```
-  curl -fsSL https://raw.githubusercontent.com/umeshtemburwar/javis-os/main/packaging/macos/get-javis.sh | bash
+  curl -fsSL https://raw.githubusercontent.com/blogminhquy/javis-os/main/packaging/macos/get-javis.sh | bash
   ```
 
 If you already downloaded the file with the browser and it was blocked:
