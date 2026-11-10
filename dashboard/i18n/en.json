@@ -638,7 +638,7 @@
   "settings.key_set": "(saved - leave blank to keep)",
   "settings.eleven_ph": "Paste your ElevenLabs API key",
   "settings.voice_id_hint": "(from ElevenLabs → Voices)",
-  "settings.eleven_voice_ph": "e.g. 21m00Tcm4TlvDq8ikWAM (Rachel)",
+  "settings.eleven_voice_ph": "E.g. 21m00Tcm4TlvDq8ikWAM (Rachel)",
   "settings.save_provider": "Save provider",
   "settings.v2_last_error": "The last voice turn ({min} min ago) the fast lane failed: voice brain {brain} reported \"{error}\". That turn went to the main brain. Check that brain on the Models page.",
   "settings.v2_load_fail": "Could not load voice options (old server?).",

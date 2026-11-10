@@ -65,7 +65,7 @@ class VoiceTurnIntegrity(unittest.IsolatedAsyncioTestCase):
                 await namespace['run_voice_turn'](sid, original, 'brain', 'tag', None, {'loc_tap_am': True})
                 return [m['content'] for m in store.get_messages(sid)], frames, fallbacks, ui
             finally:
-                store._conn.close()
+                store.close()
 
     async def test_destructive_first_line_cannot_overwrite_or_execute_ui(self):
         original = 'Javis, đừng mở trang Models, đưa anh về trò chuyện nhé.'

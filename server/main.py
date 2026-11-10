@@ -15176,16 +15176,12 @@ def _render_javis_index(caps: dict) -> str:
     n_on_wf = sum(1 for w in caps["workflows"] if w["status"] == "active")
     plugins = caps.get("plugins", [])
     n_on_plugins = sum(1 for p in plugins if p.get("loaded"))
-    L = ["# Javis Index (tầng vận hành)", "",
-         "> Tự sinh từ file - ĐỪNG sửa tay. Chỉ mục mọi năng lực của Javis trong brain này để bất kỳ "
-         "AI/engine đọc 1 chỗ là hiểu Javis làm được gì. Song song `wiki/index.md` (tri thức).", "",
-         f"**Tổng quan:** {len(caps['agents'])} agents · {len(caps['skills'])} skills · "
-         f"{len(caps['workflows'])} workflows ({n_on_wf} bật) · {len(caps['loops'])} loops ({n_on_loops} bật) · "
-         f"{len(plugins)} plugins ({n_on_plugins} chạy)", ""]
-    # Cả ba loại năng lực xếp theo NHÓM (field `group`). Brain dùng lâu có vài chục agent và
-    # workflow; một danh sách phẳng dài dằng dặc thì chính AI đọc chỉ mục này cũng khó dò ra
-    # cái cần, và người đọc lại càng khó. Chỉ hiện tiêu đề nhóm khi thực sự có nhiều hơn một
-    # nhóm - brain mới toàn "Chung" thì thêm một tầng tiêu đề chỉ tổ rườm.
+    L = ["# RAM Index (operational layer)", "",
+         "> Auto-generated from files - DO NOT edit by hand. Indexes all RAM capabilities in this brain for any "
+         "AI/engine to understand what RAM can do in one place. Companion to `wiki/index.md` (knowledge).", "",
+         f"**Overview:** {len(caps['agents'])} agents · {len(caps['skills'])} skills · "
+         f"{len(caps['workflows'])} workflows ({n_on_wf} active) · {len(caps['loops'])} loops ({n_on_loops} active) · "
+         f"{len(plugins)} plugins ({n_on_plugins} running)", ""]
     def _theo_nhom(items):
         by = {}
         for it in items:
@@ -15203,60 +15199,62 @@ def _render_javis_index(caps: dict) -> str:
 
     L.append("## Agents")
     if caps["agents"]:
-        # Agent gắn NHIỀU tag (0.100.0), nên không chia theo tag: chia thì agent hai tag hiện hai lần.
-        # Mỗi agent một dòng, tag ghi ngay trên dòng đó.
         for a in caps["agents"]:
             mdl = f" · model {a['model']}" if a["model"] else ""
             sk = f" · skills: {', '.join(a['skills'])}" if a["skills"] else ""
             tg = f" · tags: {', '.join(a.get('tags') or [])}" if a.get("tags") else ""
             L.append(f"- **{a['name']}** (`{a['slug']}`) - {a['role']}{mdl}{sk}{tg}")
     else:
-        L.append("_(chưa có)_")
+        L.append("_(none yet)_")
     L.append("\n## Skills")
     if caps["skills"]:
         by_group = _theo_nhom(caps["skills"])
         for g in sorted(by_group):
             L.append(f"### {g}")
             for s in by_group[g]:
-                off = "" if s["enabled"] else " · [TẮT]"
-                L.append(f"- **{s['name']}** (`{s['slug']}`){off} - {s['description']}")
+                off = "" if s["enabled"] else " · [DISABLED]"
+                desc = s.get("description_en") or s["description"]
+                name = s.get("name_en") or s["name"]
+                L.append(f"- **{name}** (`{s['slug']}`){off} - {desc}")
     else:
-        L.append("_(chưa có)_")
+        L.append("_(none yet)_")
     L.append("\n## Workflows")
     if caps["workflows"]:
         def _dong_wf(w):
-            return (f"- **{w['name']}** (`{w['slug']}`) - {w['status']} · {w['n_steps']} bước "
+            return (f"- **{w['name']}** (`{w['slug']}`) - {w['status']} · {w['n_steps']} steps "
                     f"[{' -> '.join(x for x in w['agents'] if x)}]"
                     + (f" · {w['description']}" if w["description"] else ""))
         _do_nhom(caps["workflows"], _dong_wf)
     else:
-        L.append("_(chưa có)_")
+        L.append("_(none yet)_")
     L.append("\n## Loops")
     if caps["loops"]:
         for l in caps["loops"]:
-            stt = "⚠ tự tạm dừng" if l["paused"] else ("bật" if l["enabled"] else "tắt")
-            L.append(f"- **{l['name']}** (`{l['slug']}`) - {stt} · {l['goal']}/{l['mode']} · mỗi {l['interval_min']} phút")
+            stt = "⚠ paused" if l["paused"] else ("active" if l["enabled"] else "disabled")
+            L.append(f"- **{l['name']}** (`{l['slug']}`) - {stt} · {l['goal']}/{l['mode']} · every {l['interval_min']} min")
     else:
-        L.append("_(chưa có)_")
+        L.append("_(none yet)_")
     if plugins:
-        L.append("\n## Plugins (tool/hook native cho mọi engine)")
+        L.append("\n## Plugins (native tools/hooks for all engines)")
         for p in plugins:
             if p.get("loaded"):
-                stt = "chạy"
+                stt = "running"
             elif p.get("gated"):
-                stt = "⚠ tắt bằng env JAVIS_ENABLE_USER_PLUGINS=false"
+                stt = "⚠ disabled by env JAVIS_ENABLE_USER_PLUGINS=false"
             elif p.get("error"):
-                stt = "⚠ lỗi"
+                stt = "⚠ error"
             else:
-                stt = "tắt"
+                stt = "disabled"
             extra = []
             if p.get("tools"):
                 extra.append("tools: " + ", ".join(p["tools"]))
             if p.get("hooks"):
                 extra.append("hooks: " + ", ".join(p["hooks"]))
             tail = (" · " + " · ".join(extra)) if extra else ""
-            L.append(f"- **{p['name']}** (`{p['slug']}`) - {p['source']}/{stt}{tail}"
-                     + (f" · {p['description']}" if p.get("description") else ""))
+            p_name = p.get("name_en") or p.get("name")
+            p_desc = p.get("description_en") or p.get("description") or ""
+            L.append(f"- **{p_name}** (`{p['slug']}`) - {p['source']}/{stt}{tail}"
+                     + (f" · {p_desc}" if p_desc else ""))
     # Cờ sức khoẻ (mini-LINT tầng vận hành)
     agent_slugs = {a["slug"] for a in caps["agents"]}
     used = {ag for w in caps["workflows"] for ag in w["agents"] if ag}
